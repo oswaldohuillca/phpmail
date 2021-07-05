@@ -5,7 +5,7 @@ class Mailer{
     private $subject;
     private $message;
     private $email;
-    private $recipient = "oswaldohuillca@gmail.com";
+    private string $recipient = "oswaldohuillca@gmail.com";
     public function __construct($name,$subject,$message,$email){
         $this->name = strip_tags(trim($name));
         $this->subject = trim($subject);
@@ -27,7 +27,7 @@ class Mailer{
         // FIXME: Update this to your desired email address.
 
         // Set the email subject.
-        $this->subject = "New contact from $this->name";
+        //$this->subject = "Cotización de: $this->name";
 
         // Build the email content.
         $email_content = "Name: {$this->name}\n";
@@ -36,24 +36,23 @@ class Mailer{
         $email_content .= "Message:\n{$this->message} \n";
 
         // Build the email headers.
-        /*$email_headers = "From: $this->name <$this->email>\n";
-        $email_headers .= "Reply-To: bob@bob.com\r\n";
-        $email_headers .= "X-Mailer: PHP/".phpversion()."\r\n";
-        $email_headers .= "Mime-Version: 1.0\n";*/
+   
         
         $email_headers  = 'MIME-Version: 1.0' . "\r\n";
         $email_headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-        $email_headers .= "To: {$this->name} <mary@example.com>, Kelly <kelly@example.com>" . "\r\n";
-        $email_headers .= 'From: Recordatorio <cumples@example.com>' . "\r\n";
-        $email_headers .= 'Cc: birthdayarchive@example.com' . "\r\n";
-        $email_headers .= 'Bcc: birthdaycheck@example.com' . "\r\n";
+        $email_headers .= "To: Oswaldo <oswaldohuillca@gmail.com>". "\r\n";
+        $email_headers .= "From: {$this->name} <{$this->email}>" . "\r\n";
+        $email_headers .= "Reply-To: {$this->email}\r\n";
+        $email_headers .= "X-Mailer: PHP/".phpversion()."\r\n";
+        $email_headers .= 'Cc: oswaldohuillca@gmail.com' . "\r\n";
+        $email_headers .= 'Bcc: oswaldohuillca@gmail.com' . "\r\n";
 
         ini_set ( "SMTP", "smtp-server.example.com" );
-        date_default_timezone_set('America/New_York');
+        date_default_timezone_set('America/Lima');
 
         // Send the email.
-        if (mail($this->recipient, $this->subject, $email_content, $email_headers,'-fwebmaster@example.com')) {
+        if (mail($this->recipient, $this->subject, $email_content, $email_headers)) {
             // Set a 200 (okay) response code.
             http_response_code(200);
             echo "¡Gracias! Su mensaje ha sido enviado.";
